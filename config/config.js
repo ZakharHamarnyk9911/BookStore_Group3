@@ -4,4 +4,4 @@ const config = {
     mongoUri: process.env.MONGODB_URI || "mongodb+srv://group3:group3@groupproject.h1wonux.mongodb.net/?retryWrites=true&w=majority"
     };
     
-    export default config
+    export default config;
