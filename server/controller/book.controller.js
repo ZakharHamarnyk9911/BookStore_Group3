@@ -2,19 +2,22 @@ import Book from "../model/book.model.js";
 
 export const createBook = async (request, response) => {
   try {
+    console.log("Request Body:", request.body);
+
     const newBook = {
       title: request.body.title,
       author: request.body.author,
-      image: request.body.image,
       price: request.body.price,
       category: request.body.category,
       description: request.body.description,
     };
-    
+    console.log("New Book:", newBook);
+
     const book = await Book.create(newBook);
-    console.log("Book added succesfully");
+    console.log("Book added successfully");
     return response.status(201).send(book);
   } catch (error) {
+    console.log("Error:", error.message);
     if (error.name === 'ValidationError') {
       const errors = Object.values(error.errors).map((err) => err.message);
       return response.status(400).json({ message: "Validation Error", errors });
@@ -24,6 +27,7 @@ export const createBook = async (request, response) => {
     }
   }
 };
+
 
 export const getAllBooks = async (request, response) => {
   try {
@@ -59,6 +63,8 @@ export const updateBook = async (request, response) => {
       runValidators: true,
     });
     console.log("Books updated succesfully");
+    console.log("Updated Book:", updatedBook);
+
     if (!updatedBook) {
       return response.status(404).json({ message: "Book not found" });
     }
@@ -80,6 +86,7 @@ export const deleteBook = async (request, response) => {
     const { id } = request.params;
     const deletedBook = await Book.findByIdAndDelete(id);
    console.log("Books removed succesfully");
+   console.log("Deleted Book:", deletedBook);
 
     if (!deletedBook) {
       return response.status(404).json({ message: "Book not found" });
