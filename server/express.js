@@ -5,6 +5,8 @@ import compress from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import bookRoutes from './route/book.routes.js'
+import userRoutes from './route/user.route.js'
+import authRoutes from './route/auth.route.js';
 import Template from './../template.js';
 
 const app = express();
@@ -21,6 +23,8 @@ app.use(cors())
 
 
 app.use('/api',bookRoutes);
+app.use('/api', userRoutes)
+app.use('/api', authRoutes)
 
 app.get('/', (req, res) => {
     res.status(200).send(Template()) 
