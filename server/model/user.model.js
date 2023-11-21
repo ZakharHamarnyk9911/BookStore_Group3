@@ -94,8 +94,6 @@ UserSchema.methods = {
     }
   },
 };
-UserSchema.methods.remove = async function () {
-  return await this.deleteOne();
-};
+
 
 export default mongoose.model('User', UserSchema);
