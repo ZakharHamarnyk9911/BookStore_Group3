@@ -81,13 +81,14 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   try {
     let user = req.profile;
-    let deletedUser = await user.this.deleteOne();;
-    deletedUser.hashed_password = undefined;
-    deletedUser.salt = undefined;
+    await User.deleteOne({ _id: user._id });
+    user.hashed_password = undefined;
+    user.salt = undefined;
+    console.log("delete successful");
     res.json({
-      _id: deletedUser._id,
-      name: deletedUser.name,
-      email: deletedUser.email,
+      _id: user._id,
+      name: user.name,
+      email: user.email,
       deleted: true,
     });
   } catch (err) {
