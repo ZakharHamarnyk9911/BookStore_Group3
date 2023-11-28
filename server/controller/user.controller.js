@@ -1,7 +1,6 @@
 import User from '../model/user.model.js';
 import extend from 'lodash/extend.js';
 import errorHandler from './error.controller.js';
-import auth from './auth.controller.js';
 
 const create = async (req, res) => {
   const user = new User(req.body);
@@ -81,13 +80,14 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   try {
     let user = req.profile;
-    let deletedUser = await user.this.deleteOne();;
-    deletedUser.hashed_password = undefined;
-    deletedUser.salt = undefined;
+    await User.deleteOne({ _id: user._id });
+    user.hashed_password = undefined;
+    user.salt = undefined;
+    console.log("delete succesful");
     res.json({
-      _id: deletedUser._id,
-      name: deletedUser.name,
-      email: deletedUser.email,
+      _id: user._id,
+      name: user.name,
+      email: user.email,
       deleted: true,
     });
   } catch (err) {

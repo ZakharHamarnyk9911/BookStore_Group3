@@ -9,14 +9,14 @@ import {
 
 const router = express.Router();
 
-router.post("/books", createBook);
+router.post("/api/books", createBook);
 
-router.get("/books", getAllBooks);
+router.get("/api/books", getAllBooks);
 
-router.get("/books/:id", getBookById);
+router.get("/api/books/:id", getBookById);
 
-router.put("/books/:id", updateBook);
+router.put("/api/books/:id", updateBook);
 
-router.delete("/books/:id", deleteBook);
+router.delete("/api/books/:id", deleteBook);
 
 export default router;
