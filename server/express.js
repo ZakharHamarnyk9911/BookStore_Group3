@@ -18,7 +18,6 @@ import { StaticRouter } from 'react-router-dom'
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles'
 import theme from './../client/theme'
 
-//comment out before building for production
 import devBundle from './devBundle'
 
 const CURRENT_WORKING_DIR = process.cwd()
