@@ -36,7 +36,7 @@ const Menu = withRouter(({ history }) => {
        <img
     src={LogoImage}
     alt="Logo"
-    style={{ width: '30px', marginRight: '10px' }} // Set the width as needed
+    style={{ width: '30px', marginRight: '10px' }} 
   />
           Group3
         </Typography>
