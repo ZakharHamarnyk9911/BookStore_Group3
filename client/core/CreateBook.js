@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Footer from './footer';
+import auth from './../auth/auth-helper';
+import { Redirect } from 'react-router-dom';
+
 
 const CreateBook = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +30,9 @@ const CreateBook = () => {
       [name]: value,
     }));
   };
-
+  if (!auth.isAuthenticated()) {
+    return <Redirect to="/signin" />;
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -45,6 +50,8 @@ const CreateBook = () => {
         },
         body: JSON.stringify(formData),
       });
+
+      
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
