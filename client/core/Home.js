@@ -9,9 +9,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import BookIcon from '@material-ui/icons/Book';
 import Footer from './footer'; 
+import auth from './../auth/auth-helper';
+import { Redirect } from 'react-router-dom';
+
 
 const Home = () => {
   const [books, setBooks] = useState([]);
+  const [showSignInMessage, setShowSignInMessage] = useState(false);
+
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -30,11 +35,20 @@ const Home = () => {
     fetchBooks();
   }, []);
 
+  
   const handleDelete = async (id) => {
+    if (!auth.isAuthenticated()) {
+      setShowSignInMessage(true);
+      return;
+    }
+    
+
     try {
+      
       const response = await fetch(`/api/books/${id}`, {
         method: 'DELETE',
       });
+      
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -44,11 +58,13 @@ const Home = () => {
     } catch (error) {
       console.error('Error deleting book:', error.message);
     }
+    
   };
 
   return (
     <div>
       <h1 align="center"><u>Book List</u></h1>
+  
       <Link to="/books/create" style={{ marginLeft: '20px' }}>
         <Button variant="contained" color="primary" startIcon={<AddIcon />}>
           Add New Book
@@ -60,6 +76,11 @@ const Home = () => {
           style={{ margin: '20px', padding: '20px', border: '1px solid #343a40' }}
         >
           <CardContent>
+          {showSignInMessage && (
+              <div style={{ fontSize:'25px',fontWeight:'bold',textAlign: 'center', color: 'red', marginBottom: '10px' }}>
+                Please sign in to delete a book.
+              </div>
+            )}
             <BookIcon style={{ fontSize: 40, marginBottom: 10 }} />
 
             <Typography style={{ color: 'orange', fontWeight:'bold' }} variant="h6" component="div">
