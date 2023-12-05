@@ -10,7 +10,6 @@ import AddIcon from '@material-ui/icons/Add';
 import BookIcon from '@material-ui/icons/Book';
 import Footer from './footer'; 
 import auth from './../auth/auth-helper';
-import { Redirect } from 'react-router-dom';
 
 
 const Home = () => {
