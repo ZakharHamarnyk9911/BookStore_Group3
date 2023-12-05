@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Footer from './footer';
+import auth from './../auth/auth-helper';
+import { Redirect } from 'react-router-dom';
+
 
 const EditBook = () => {
   const { id } = useParams();
@@ -73,7 +76,9 @@ const EditBook = () => {
       setError('Error editing book');
     }
   };
-
+  if (!auth.isAuthenticated()) {
+    return <Redirect to="/signin" />;
+  }
   if (!id) {
     return <div>Book ID is undefined</div>;
   }
